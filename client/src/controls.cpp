@@ -1,7 +1,7 @@
 #include <controls.h>
 
 void Controls::start() {
-	config.open("config.txt");
+	config.open("src/config.txt");
 
 	setAction(Action::Right);
 	setAction(Action::Left);

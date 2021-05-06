@@ -9,7 +9,7 @@ void Game::start(Console& console, Network& network) {
 	window.create(sf::VideoMode(1280, 720), console.isHosting ? "host" : "client");
 	window.setKeyRepeatEnabled(false);
 
-	if (!font.loadFromFile("fonts/arial.ttf")) { std::string error; throw error; }
+	if (!font.loadFromFile("src/fonts/arial.ttf")) { std::string error; throw error; }
 
 	controls.start();
 
