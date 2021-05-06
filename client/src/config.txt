@@ -1,0 +1,10 @@
+right: right
+left: left
+down: down
+up: up
+nonA: z
+nonB: x
+spellA: a
+spellB: s
+focus: shift
+bomb: space
