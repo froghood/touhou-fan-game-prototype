@@ -20,6 +20,7 @@ struct Opponent : Entity {
 	void render(sf::RenderWindow&) override;
 	void actionPressed(sf::Packet& packet);
 	void actionReleased(sf::Packet& packet);
+	void velocityChange(Network& network, sf::Packet& packet);
 
 	virtual void nonA() = 0;
 	virtual void nonB() = 0;

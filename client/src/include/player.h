@@ -23,6 +23,9 @@ struct Player : Entity {
 	void actionPressed(Network& network, Game& game, Action& action);
 	void actionReleased(Network& network, Game& game, Action& action);
 
+	void addVelocity(Network& network, sf::Vector2<double> v);
+	void subVelocity(Network& network, sf::Vector2<double> v);
+
 	virtual void nonA() = 0;
 	virtual void nonB() = 0;
 	virtual void spellA() = 0;

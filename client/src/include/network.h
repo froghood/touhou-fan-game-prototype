@@ -3,12 +3,13 @@
 #include <iostream>
 #include <thread>
 
-#include <SFML\Network\TcpListener.hpp>
-#include <SFML\Network\TcpSocket.hpp>
-#include <SFML\Network\SocketSelector.hpp>
-#include <SFML\Network\Packet.hpp>
-#include <SFML\System\Sleep.hpp>
-#include <SFML\System\Clock.hpp>
+#include <SFML/Network/TcpListener.hpp>
+#include <SFML/Network/TcpSocket.hpp>
+#include <SFML/Network/SocketSelector.hpp>
+#include <SFML/Network/Packet.hpp>
+#include <SFML/System/Sleep.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Vector2.hpp>
 
 struct Console;
 struct Game;
@@ -41,6 +42,7 @@ struct Network {
 	void managePacket(Console& console, Game& game);
 
 	sf::Uint64 getTimestamp();
+	double getLatency(sf::Uint64& t);
 
 	void name();
 	void syncStart();
@@ -55,9 +57,18 @@ const enum class PacketType : sf::Uint8 {
 	OpponentActionPressed,
 	OpponentActionReleased,
 	MatchInit,
+	OpponentVelocityChange,
 	OpponentGraze,
 	OpponentHit,
 };
+
+inline sf::Packet& operator << (sf::Packet& packet, sf::Vector2<double>& v) {
+	return packet << v.x << v.y;
+}
+
+inline sf::Packet& operator >> (sf::Packet& packet, sf::Vector2<double>& v) {
+	return packet >> v.x >> v.y;
+}
 
 template<typename T>
 sf::Packet& operator << (sf::Packet& packet, const T& e) {

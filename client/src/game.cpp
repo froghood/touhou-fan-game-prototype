@@ -29,7 +29,7 @@ void Game::loop(Console& console, Network& network) {
 	while (window.isOpen()) {
 		current = clock.getElapsedTime().asSeconds();
 		delta = current - previous;
-		std::cout << delta << "\n";
+		//std::cout << delta << "\n";
 		framerate = 1 / delta;
 
 		try { network.receive(console, *this); }
@@ -78,7 +78,7 @@ void Game::setState(State* newState) {
 }
 
 void Game::update(double delta) {
-	std::cout << delta << "\n";
+	//std::cout << delta << "\n";
 	state->update(delta);
 }
 

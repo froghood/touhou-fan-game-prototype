@@ -154,6 +154,9 @@ void Network::managePacket(Console& console, Game& game) {
 		case PacketType::MatchInit:
 			matchInit(game);
 			break;
+		case PacketType::OpponentVelocityChange:
+			game.state->opponentVelocityChange(*this, receivePacket);
+			break;
 		case PacketType::OpponentGraze:
 			game.state->opponentGraze(receivePacket);
 			break;
@@ -212,4 +215,10 @@ void Network::matchInit(Game& game) {
 
 sf::Uint64 Network::getTimestamp() {
 	return clock.getElapsedTime().asMicroseconds() + offset;
+}
+
+//returns the difference in timestamps as a decimal
+double Network::getLatency(sf::Uint64& t) {
+	auto ct = getTimestamp();
+	return (t > ct) ? 0.0 : (ct - t) / 1000000.0;
 }

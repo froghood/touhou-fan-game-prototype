@@ -30,6 +30,7 @@ struct State {
 	//character select state
 
 	//match state
+	virtual void opponentVelocityChange(Network& network, sf::Packet& packet);
 	virtual void opponentGraze(sf::Packet& packet);
 	virtual void opponentHit(sf::Packet& packet);
 };
@@ -69,6 +70,7 @@ struct MatchState : State {
 
 	void opponentActionPressed(Console& console, sf::Packet& packet) override;
 	void opponentActionReleased(sf::Packet& packet) override;
+	void opponentVelocityChange(Network& network, sf::Packet& packet) override;
 	void opponentGraze(sf::Packet& packet) override;
 	void opponentHit(sf::Packet& packet) override;
 };

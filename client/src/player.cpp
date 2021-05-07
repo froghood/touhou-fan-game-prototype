@@ -16,21 +16,35 @@ void Player::render(sf::RenderWindow& window) {
 }
 
 void Player::actionPressed(Network& network, Game& game, Action& action) {
-	network.sendPacket << PacketType::OpponentActionPressed << action;
-	network.send();
-	sf::Vector2<double> input(
-		bool(action == Action::Right) - bool(action == Action::Left),
-		bool(action == Action::Down) - bool(action == Action::Up));
-	vel += input * unfocusedMovespeed;
+	sf::Vector2<sf::Int8> input(
+		(action == Action::Right) - (action == Action::Left),
+		(action == Action::Down) - (action == Action::Up));
+	double dirAngle = atan2(input.y, input.x);
+	addVelocity(network, sf::Vector2<double>(
+		input.x * unfocusedMovespeed * abs(cos(dirAngle)),
+		input.y * unfocusedMovespeed * abs(sin(dirAngle))));
 }
 
 void Player::actionReleased(Network& network, Game& game, Action& action) {
-	network.sendPacket << PacketType::OpponentActionReleased << action;
+	sf::Vector2<sf::Int8> input(
+		(action == Action::Right) - (action == Action::Left),
+		(action == Action::Down) - (action == Action::Up));
+	double dirAngle = atan2(input.y, input.x);
+	subVelocity(network, sf::Vector2<double>(
+		input.x * unfocusedMovespeed * abs(cos(dirAngle)),
+		input.y * unfocusedMovespeed * abs(sin(dirAngle))));
+}
+
+void Player::addVelocity(Network& network, sf::Vector2<double> v) {
+	vel += v;
+	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << pos << vel;
 	network.send();
-	sf::Vector2<double> input(
-		bool(action == Action::Right) - bool(action == Action::Left),
-		bool(action == Action::Down) - bool(action == Action::Up));
-	vel -= input * unfocusedMovespeed;
+}
+
+void Player::subVelocity(Network& network, sf::Vector2<double> v) {
+	vel -= v;
+	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << pos << vel;
+	network.send();
 }
 
 //reimu
@@ -44,3 +58,4 @@ void PlayerMarisa::nonA() {}
 void PlayerMarisa::nonB() {}
 void PlayerMarisa::spellA() {}
 void PlayerMarisa::spellB() {}
+

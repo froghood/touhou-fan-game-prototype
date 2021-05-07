@@ -46,6 +46,10 @@ void MatchState::opponentActionReleased(sf::Packet& packet) {
 	opponent->actionReleased(packet);
 }
 
+void MatchState::opponentVelocityChange(Network& network, sf::Packet& packet) {
+	opponent->velocityChange(network, packet);
+}
+
 void MatchState::update(double& delta) {
 	player->update(delta);
 	opponent->update(delta);

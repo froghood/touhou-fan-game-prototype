@@ -15,22 +15,13 @@ void Opponent::render(sf::RenderWindow& window) {
 	window.draw(rect);
 }
 
-void Opponent::actionPressed(sf::Packet& packet) {
-	Action action;
-	packet >> action;
-	sf::Vector2<double> input(
-		bool(action == Action::Right) - bool(action == Action::Left),
-		bool(action == Action::Down) - bool(action == Action::Up));
-	vel += input * unfocusedMovespeed;
-}
+void Opponent::actionPressed(sf::Packet& packet) {}
+void Opponent::actionReleased(sf::Packet& packet) {}
 
-void Opponent::actionReleased(sf::Packet& packet) {
-	Action action;
-	packet >> action;
-	sf::Vector2<double> input(
-		bool(action == Action::Right) - bool(action == Action::Left),
-		bool(action == Action::Down) - bool(action == Action::Up));
-	vel -= input * unfocusedMovespeed;
+void Opponent::velocityChange(Network& network, sf::Packet& packet) {
+	sf::Uint64 timestamp;
+	packet >> timestamp >> pos >> vel;
+	pos += vel * network.getLatency(timestamp);
 }
 
 //reimu
