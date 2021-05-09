@@ -57,12 +57,12 @@ void CharacterSelector::render(sf::RenderWindow& window) {
 		rect.setFillColor(sf::Color::Black);
 		text.setCharacterSize(16);
 		for (sf::Uint8 i = 0; i < characterList.size(); i++) {
-			sf::Vector2f positionition(windowSize.x / 2 + spacing * i - offset, windowSize.y / 2);
+			sf::Vector2f position(windowSize.x / 2 + spacing * i - offset, windowSize.y / 2);
 
-			rect.setPosition(positionition);
+			rect.setPosition(position);
 			rect.center();
 
-			text.setPosition(positionition);
+			text.setPosition(position);
 			text.setString(characterList[i]);
 			text.center();
 
@@ -70,7 +70,7 @@ void CharacterSelector::render(sf::RenderWindow& window) {
 			window.draw(text);
 		}
 
-		//draw both p1 selector positionitions
+		//draw both p1 selector positions
 		text.setString("P1");
 		text.setFillColor(sf::Color(255, 0, 100));
 		text.setPosition(sf::Vector2f(
@@ -145,12 +145,12 @@ void StageSelector::render(sf::RenderWindow& window) {
 		rect.setFillColor(sf::Color::Black);
 		text.setCharacterSize(16);
 		for (sf::Uint8 i = 0; i < stageList.size(); i++) {
-			sf::Vector2f positionition(windowSize.x / 2, windowSize.y / 2 + spacing * i - offset);
+			sf::Vector2f position(windowSize.x / 2, windowSize.y / 2 + spacing * i - offset);
 
-			rect.setPosition(positionition);
+			rect.setPosition(position);
 			rect.center();
 
-			text.setPosition(positionition);
+			text.setPosition(position);
 			text.setString(stageList[i]);
 			text.center();
 
@@ -158,7 +158,7 @@ void StageSelector::render(sf::RenderWindow& window) {
 			window.draw(text);
 		}
 
-		//draw index positionition
+		//draw index position
 		text.setString("P1");
 		text.setFillColor(sf::Color(255, 0, 100));
 		text.setCharacterSize(24);

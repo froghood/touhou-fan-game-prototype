@@ -1,10 +1,5 @@
 #include <opponent.h>
 
-template <typename T>
-inline T sign(T n) {
-	return (n > 0) - (n < 0);
-}
-
 void Opponent::update(double& delta) {
 	position += velocity * delta;
 	smoothPosition *= pow(0.0018, delta);
