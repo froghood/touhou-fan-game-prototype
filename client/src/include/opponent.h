@@ -7,13 +7,15 @@
 
 struct Opponent : Entity {
 	const double unfocusedMovespeed, focusedMovespeed;
+	sf::Vector2<double> smoothPosition;
 
 	sf::RectangleShape rect;
 
 	Opponent(double x, double y, double m, double fm)
 		: Entity(x, y)
 		, unfocusedMovespeed(m)
-		, focusedMovespeed(fm) {
+		, focusedMovespeed(fm)
+		, smoothPosition(0, 0){
 	}
 
 	void update(double& delta) override;

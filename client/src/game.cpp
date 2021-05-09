@@ -10,6 +10,7 @@ void Game::start(Console& console, Network& network) {
 	window.setKeyRepeatEnabled(false);
 
 	if (!font.loadFromFile("src/fonts/arial.ttf")) { std::string error; throw error; }
+	text.setFont(font);
 
 	controls.start();
 
@@ -36,7 +37,7 @@ void Game::loop(Console& console, Network& network) {
 		catch (std::string& error) { throw error; }
 
 		event(console, network);
-		update(delta / 1);
+		update(delta);
 		render(network);
 
 		previous = current;
@@ -85,6 +86,10 @@ void Game::update(double delta) {
 void Game::render(Network& network) {
 	window.clear(sf::Color(30,35,45));
 	state->render(window, network);
+
+	text.setString(std::to_string(std::max(1.0,framerate)));
+	text.setPosition(50, 50);
+	window.draw(text);
 	window.display();
 }
 

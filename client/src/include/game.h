@@ -28,6 +28,8 @@ struct Game {
 	double delta;
 	double framerate;
 
+	sf::Text text;
+
 	Game();
 	void start(Console& console, Network& network);
 	void setState(State* newState);

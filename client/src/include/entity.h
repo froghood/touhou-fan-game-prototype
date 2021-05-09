@@ -5,10 +5,10 @@
 
 
 struct Entity {
-	sf::Vector2<double> pos;
-	sf::Vector2<double> vel;
+	sf::Vector2<double> position;
+	sf::Vector2<double> velocity;
 
-	Entity(double x, double y) : pos(x, y), vel(0, 0) {}
+	Entity(double x, double y) : position(x, y), velocity(0, 0) {}
 
 	virtual void update(double& delta) = 0;
 	virtual void render(sf::RenderWindow& window) = 0;

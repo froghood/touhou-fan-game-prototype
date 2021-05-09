@@ -1,11 +1,11 @@
 #include <player.h>
 
 void Player::update(double& delta) {
-	pos += vel * delta;
+	position += velocity * delta;
 }
 
 void Player::render(sf::RenderWindow& window) {
-	rect.setPosition(sf::Vector2f(pos.x, pos.y));
+	rect.setPosition(sf::Vector2f(position.x, position.y));
 	rect.setSize(sf::Vector2f(32, 32));
 	rect.setOutlineThickness(1);
 	rect.setOutlineColor(sf::Color::White);
@@ -36,14 +36,14 @@ void Player::actionReleased(Network& network, Game& game, Action& action) {
 }
 
 void Player::addVelocity(Network& network, sf::Vector2<double> v) {
-	vel += v;
-	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << pos << vel;
+	velocity += v;
+	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << position << velocity;
 	network.send();
 }
 
 void Player::subVelocity(Network& network, sf::Vector2<double> v) {
-	vel -= v;
-	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << pos << vel;
+	velocity -= v;
+	network.sendPacket << PacketType::OpponentVelocityChange << network.getTimestamp() << position << velocity;
 	network.send();
 }
 
